@@ -8,7 +8,6 @@ import {
   addToCart,
   removeFromCart,
 } from "../redux/actionCreator/productActions";
-import { ADD_TO_CART } from "../redux/actionTypes/actionTypes";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
