@@ -11,11 +11,16 @@ import {
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  const {pathname} = useLocation()
+  const { pathname } = useLocation();
   return (
     <div
-      className="shadow-lg rounded-3xl border  p-3 flex flex-col text-indigo-900"
+      className="shadow-lg relative rounded-3xl border  p-3 flex flex-col text-indigo-900"
       key={product._id}>
+      {pathname.includes("cart") && (
+        <div className="grid place-items-center bg-indigo-500 text-white h-8 w-8 rounded-full absolute top-2 right-2">
+          <p>{product.quantity}</p>
+        </div>
+      )}
       <div className="h-52 w-52 mx-auto">
         <img src={product.image} alt={product.model} />
       </div>
@@ -33,22 +38,28 @@ const ProductCard = ({ product }) => {
         </ul>
       </div>
       <div className="flex gap-2 mt-5">
-       {!pathname.includes("cart")&& (<button
-          className="bg-indigo-500 rounded-full py-1 px-2 flex-1 text-white text-bold"
-          onClick={() => dispatch(addToCart(product))}>
-          Add to cart
-        </button>)}
-       {pathname.includes("cart") && (<button
-          className="bg-red-500 rounded-full py-1 px-2 flex-1 text-white text-bold"
-          onClick={() => dispatch(removeFromCart(product))}>
+        {!pathname.includes("cart") && (
+          <button
+            className="bg-indigo-500 rounded-full py-1 px-2 flex-1 text-white text-bold"
+            onClick={() => dispatch(addToCart(product))}>
+            Add to cart
+          </button>
+        )}
+        {pathname.includes("cart") && (
+          <button
+            className="bg-red-500 rounded-full py-1 px-2 flex-1 text-white text-bold"
+            onClick={() => dispatch(removeFromCart(product))}>
             <p>Remove</p>
-          {/* <RiDeleteBin2Fill/> */}
-        </button>)}
-        {!pathname.includes("cart")&& (<button
-          title="Add to wishlist"
-          className="bg-indigo-500  py-1 px-2 rounded-full">
-          <BiListPlus className="text-white" />
-        </button>)}
+            {/* <RiDeleteBin2Fill/> */}
+          </button>
+        )}
+        {!pathname.includes("cart") && (
+          <button
+            title="Add to wishlist"
+            className="bg-indigo-500  py-1 px-2 rounded-full">
+            <BiListPlus className="text-white" />
+          </button>
+        )}
       </div>
     </div>
   );
